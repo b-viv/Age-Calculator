@@ -47,6 +47,7 @@ export class CalculatorComponent {
     this.dayCounter = 0;
 
     if (this.dateInputForm.valid && this.isValidLastDayOfMonth(dayValue, monthValue, yearValue)) {
+      this.emptyFields = false;
       this.years = this.currentDate.getFullYear() - yearValue;
       this.months = this.currentDate.getMonth() + 1 - monthValue;
       this.days = this.currentDate.getDate() - dayValue;
