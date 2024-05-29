@@ -21,6 +21,7 @@ export class CalculatorComponent {
   yearDisplay!: string;
   monthDisplay!: string;
   dayDisplay!: string;
+  emptyFields: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.dateInputForm = this.formBuilder.group({
@@ -87,6 +88,7 @@ export class CalculatorComponent {
         this.months += 12;
       }
     } else {
+      this.emptyFields = true;
       this.years = '--';
       this.months = '--';
       this.days = '--';

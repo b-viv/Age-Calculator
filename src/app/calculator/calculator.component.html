@@ -4,13 +4,13 @@
       <div class="w-100">
         <div class="row input-fields">
           <div class="col-4"
-            [ngClass]="dateInputForm.get('dayInput')?.invalid && (dateInputForm.get('dayInput')?.dirty || dateInputForm.get('dayInput')?.touched) || !validLastDay ? 'error' : ''">
+            [ngClass]="dateInputForm.get('dayInput')?.invalid && (dateInputForm.get('dayInput')?.dirty || dateInputForm.get('dayInput')?.touched) || emptyFields || !validLastDay ? 'error' : ''">
             <label for="dayInput" class="input-label mb-2">Day</label>
             <input type="number" formControlName="dayInput" name="dayInput" class="form-control px-3" id="dayInput"
               placeholder="DD">
             <div class="mt-2 error-msg-container">
               <div
-                *ngIf="dateInputForm.get('dayInput')?.invalid && (dateInputForm.get('dayInput')?.dirty || dateInputForm.get('dayInput')?.touched)">
+                *ngIf="dateInputForm.get('dayInput')?.invalid && (dateInputForm.get('dayInput')?.dirty || dateInputForm.get('dayInput')?.touched) || emptyFields">
                 <div *ngIf="dateInputForm.get('dayInput')?.errors?.['required']" class="error-msg">This field
                   is required
                 </div>
@@ -26,12 +26,12 @@
             </div>
           </div>
           <div class="col-4"
-            [ngClass]="dateInputForm.get('monthInput')?.invalid && (dateInputForm.get('monthInput')?.dirty || dateInputForm.get('monthInput')?.touched) || !validLastDay ? 'error' : ''">
+            [ngClass]="dateInputForm.get('monthInput')?.invalid && (dateInputForm.get('monthInput')?.dirty || dateInputForm.get('monthInput')?.touched) || emptyFields || !validLastDay ? 'error' : ''">
             <label for="monthInput" class="input-label mb-2">Month</label>
             <input type="number" formControlName="monthInput" name="monthInput" class="form-control px-3"
               id="monthInput" placeholder="MM" required>
             <div
-              *ngIf="dateInputForm.get('monthInput')?.invalid && (dateInputForm.get('monthInput')?.dirty || dateInputForm.get('monthInput')?.touched)"
+              *ngIf="dateInputForm.get('monthInput')?.invalid && (dateInputForm.get('monthInput')?.dirty || dateInputForm.get('monthInput')?.touched) || emptyFields"
               class="mt-2">
               <div *ngIf="dateInputForm.get('monthInput')?.errors?.['required']" class="error-msg">
                 This field is required
@@ -44,12 +44,12 @@
             </div>
           </div>
           <div class="col-4"
-            [ngClass]="dateInputForm.get('yearInput')?.invalid && (dateInputForm.get('yearInput')?.dirty || dateInputForm.get('yearInput')?.touched) || !validLastDay ? 'error' : ''">
+            [ngClass]="dateInputForm.get('yearInput')?.invalid && (dateInputForm.get('yearInput')?.dirty || dateInputForm.get('yearInput')?.touched) || emptyFields || !validLastDay ? 'error' : ''">
             <label for="yearInput" class="input-label mb-2">Year</label>
             <input type="number" formControlName="yearInput" name="yearInput" class="form-control px-3" id="yearInput"
               placeholder="YYYY" required>
             <div
-              *ngIf="dateInputForm.get('yearInput')?.invalid && (dateInputForm.get('yearInput')?.dirty || dateInputForm.get('yearInput')?.touched)"
+              *ngIf="dateInputForm.get('yearInput')?.invalid && (dateInputForm.get('yearInput')?.dirty || dateInputForm.get('yearInput')?.touched) || emptyFields"
               class="mt-2">
               <div *ngIf="dateInputForm.get('yearInput')?.errors?.['required']" class="error-msg">
                 This field is required
