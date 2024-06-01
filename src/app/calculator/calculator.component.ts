@@ -22,6 +22,7 @@ export class CalculatorComponent {
   monthDisplay!: string;
   dayDisplay!: string;
   emptyFields: boolean = false;
+  validFullDate: boolean = true;
 
   constructor(private formBuilder: FormBuilder) {
     this.dateInputForm = this.formBuilder.group({
@@ -32,18 +33,16 @@ export class CalculatorComponent {
   }
 
   ngOnInit(): void {
-    this.yearDisplay = '--';
-    this.monthDisplay = '--';
-    this.dayDisplay = '--';
+    this.dateDisplay();
   }
 
   onSubmit(): void {
     const dayValue: number = this.dateInputForm.value.dayInput;
-    console.log(dayValue);
     const monthValue: number = this.dateInputForm.value.monthInput;
     let yearValue: number = this.dateInputForm.value.yearInput;
 
-    if (this.dateInputForm.valid && this.isValidLastDayOfMonth(dayValue, monthValue, yearValue)) {
+
+    if (this.dateInputForm.valid && this.isValidLastDayOfMonth(dayValue, monthValue, yearValue) &&this.isFullDateInThePast(dayValue, monthValue, yearValue)) {
       this.emptyFields = false;
       this.years = this.currentDate.getFullYear() - yearValue;
       this.months = this.currentDate.getMonth() + 1 - monthValue;
@@ -54,20 +53,17 @@ export class CalculatorComponent {
         this.months--;
         let lastMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 0);
         this.days += lastMonth.getDate();
-        console.log("ha a nap kisebb min 0:" + this.months + " " + this.days);
       }
 
       if (this.months < 0) {
         this.years--;
         this.months += 12;
-        console.log("Ha kisbb mint 0 a hónap" + this.years, this.months);
       }
 
       setTimeout(() => {
       this.yearCounter = 0;
       this.monthCounter = 0;
       this.dayCounter = 0;
-      console.log("kezdő számláló év hónap nap" + this.yearCounter, this.monthCounter, this.dayCounter);
 
       let yearCounterStop = setInterval(() => {
         if (this.years === 0) {
@@ -113,9 +109,7 @@ export class CalculatorComponent {
     });
     } else {
       this.emptyFields = true;
-      this.years = '--';
-      this.months = '--';
-      this.days = '--';
+      this.dateDisplay();
     }
    }
 
@@ -125,11 +119,25 @@ export class CalculatorComponent {
     if (day <= inputLastDayOfMonth.getDate()) {
       return this.validLastDay = true;
     } else {
-      this.validLastDay = false;
-      this.years = '--';
-      this.months = '--';
-      this.days = '--';
+      this.dateDisplay();
       return false;
     }
+  }
+
+  isFullDateInThePast(day: number, month: number, year: number):boolean {
+    let fullInputDate = new Date(year + "/"+ month + "/" + day);
+
+    if (fullInputDate <= this.currentDate) {
+      return this.validFullDate = true;
+    }else {
+      this.dateDisplay();
+      return this.validFullDate = false;
+    }
+  }
+
+  dateDisplay():void {
+    this.yearDisplay = '--';
+    this.monthDisplay = '--';
+    this.dayDisplay = '--';
   }
 }
