@@ -120,7 +120,7 @@ export class CalculatorComponent {
       return this.validLastDay = true;
     } else {
       this.dateDisplay();
-      return false;
+      return this.validLastDay = false;
     }
   }
 
